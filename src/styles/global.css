@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "./typography.css";
+
+:root,
+  html[data-theme="light"] {
+    --background: #f0f3f6;        /* cooler gray background for better contrast */
+    --foreground: #1a1f2c;        /* darker text for better readability */
+    --accent: #0fa883;            /* darker green that's easier on eyes */
+    --muted: #8492a6;            /* softer muted text */
+    --border: #2d3748;           /* darker border for definition */
+  }  html[data-theme="dark"] {
+    --background: #0a0f14;        /* very dark terminal look */
+    --foreground: #c3d1e6;        /* cool light text */
+    --accent: #00ff9c;            /* hacker green glow */
+    --muted: #1f2933;             /* dim UI sections */
+    --border: #2c3848;            /* soft gray-blue lines */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+  body {
+    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+  }
+  a,
+  button {
+    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  section,
+  footer {
+    @apply mx-auto max-w-app px-4;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+.active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-4;
+}
+
+/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 1rem;
+}
